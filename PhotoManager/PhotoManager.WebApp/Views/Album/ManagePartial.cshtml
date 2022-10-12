@@ -1,0 +1,26 @@
+﻿@model IReadOnlyList<PhotoManager.WebApp.Models.PhotoVM>
+
+   
+
+    <row>
+        <div class="col-xl-12">
+            <div class="form-group">
+                <button class="btn btn-dark select-btn" type="button">Select Images</button>
+                <button class="btn btn-dark delete-btn" type="button" style="display: none;">Delete Images</button>
+            </div>
+        </div>
+    </row>
+    <div class="row mt-5">
+        @foreach (var photo in Model)
+        {
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 p-3 text-center">
+                <div class="text-center">
+                    <label class="image-checkbox">
+                        <img class="img-fluid img-thumbnail" src="/uploads/thumbnail/@photo.FileName" alt="@photo.Title">
+                        <input type="checkbox" name="image[]" value="@photo.Id" />
+                        <i class="fa fa-check hidden"></i>
+                    </label>
+                </div>
+            </div>
+        }
+    </div>

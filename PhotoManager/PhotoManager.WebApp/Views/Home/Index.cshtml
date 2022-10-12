@@ -1,0 +1,30 @@
+﻿@model IReadOnlyList<PhotoManager.WebApp.Models.AlbumVM>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="row">
+    @foreach (var album in Model)
+    {
+        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 p-3">
+            <div class="container">
+                <div class="d-inline-block border p-2 mb-2">
+                    <div>
+                        <a asp-controller="Album" asp-action="GetPublicAlbum" asp-route-title="@album.Title">
+                            @if (@album.Photos.Count > 0)
+        {
+            <img class="img-fluid img-thumbnail" src="~/uploads/thumbnail/@album.Photos.FirstOrDefault().FileName" alt=@album.Title>
+        }
+        else
+        {
+            <img class="img-fluid img-thumbnail" src="~/icons/5396c2be-55ee-415d-b1a6-f56c222f64dc.jpg" style="background-color:white" alt=@album.Title>
+        }
+                        </a>
+                        <h5 class="text-center text-capitalize">@album.Title</h5>
+                        <p class="">@album.Description</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

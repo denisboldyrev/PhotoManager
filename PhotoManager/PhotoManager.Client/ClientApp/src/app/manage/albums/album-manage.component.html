@@ -1,0 +1,11 @@
+ <div class="form-group">
+  <button class="btn btn-dark" routerLink="create" >Add Album</button>
+</div>
+<div class="content">
+  <div class="row">
+          <div *ngFor="let a of albums" class="col-sm-12 col-md-6 col-lg-4 col-xl-3 p-1">   
+            <app-album [album] = "a" [routerLink]="[a.id, 'photos']" [url] = "a.id"></app-album>
+            <app-album-edit-panel [album] = "a" (btnClick)="deleteAlbum(a.id)"></app-album-edit-panel>       
+          </div>
+  </div>
+</div>

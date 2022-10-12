@@ -1,0 +1,47 @@
+<header>
+  <nav
+    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3"
+  >
+    <div class="container-fluid">
+      <a class="navbar-brand text-white"  [routerLink]="['/']"><i-bs name="camera" width="2rem" height="2rem"></i-bs> Photo Manager</a>
+
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+        aria-label="Toggle navigation"
+        [attr.aria-expanded]="isExpanded"
+        (click)="toggle()"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="navbar-collapse collapse d-sm-inline-flex"
+        [ngClass]="{ show: isExpanded }">
+        <ul class="navbar-nav flex-grow">
+          <li *ngIf="isUserAuthenticated"  class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-white" [routerLink]="['/manage/albums']"
+              >Manage Albums</a
+            >
+          </li>
+          <li *ngIf="isUserAuthenticated" class="nav-item" [routerLinkActive]="['link-active']">
+            <a class="nav-link text-white" [routerLink]="['/manage/photos']"
+              >Manage Photos</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="float-right">
+        <ul class="navbar-nav flex-grow">
+        <li *ngIf="!isUserAuthenticated"  class="nav-item" [routerLinkActive]="['link-active']">
+          <button class="btn text-white" style="color:gray" (click)="login()">Login</button>
+        </li>
+        <li *ngIf="isUserAuthenticated"  class="nav-item" [routerLinkActive]="['link-active']">
+          <button class="btn text-white" style="color:gray" (click)="logout()">Logout</button> 
+        </li>
+      </ul>   
+      </div>
+    </div>
+  </nav>
+</header>

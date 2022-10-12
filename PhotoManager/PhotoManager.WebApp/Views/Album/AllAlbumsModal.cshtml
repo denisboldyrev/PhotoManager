@@ -1,0 +1,40 @@
+﻿@model IReadOnlyList<PhotoManager.WebApp.Models.AlbumVM>
+
+<div class="modal-body">
+<div class="row">
+@foreach (var album in Model)
+{
+    <div class="col-sm-4">
+
+        @if (@album.Photos.Count > 0)
+        {
+            <div>
+                <label class="album-checkbox">
+                    <img class="img-fluid img-thumbnail" src="~/uploads/thumbnail/@album.Photos.FirstOrDefault().FileName" alt=@album.Title>
+                    <input class="chk-alb" type="checkbox" name="album[]" value="@album.Id" />
+                    <i class="fa fa-check hidden"></i>
+                </label>
+                <h5 class="text-center text-capitalize">@album.Title</h5>
+            </div>
+        }
+        else
+        {
+    <div>
+        <label class="album-checkbox">
+            <img class="img-fluid img-thumbnail" src="~/icons/5396c2be-55ee-415d-b1a6-f56c222f64dc.jpg" alt=@album.Title>
+            <input class="chk-alb" type="checkbox" name="album[]" value="@album.Id" />
+            <i class="fa fa-check hidden"></i>
+        </label>
+        <h5 class="text-center text-capitalize">@album.Title</h5>
+    </div>
+        }
+    </div>
+}                   
+     </div>
+</div>
+<div class="modal-footer">
+    <div class="btn-group">
+        <button type="button" class="btn btn-default add-to-alb-partial-btn" style="display: none;">Add</button>
+        <button type="button" class="btn btn-default close-modal">Close</button>
+    </div>   
+</div>

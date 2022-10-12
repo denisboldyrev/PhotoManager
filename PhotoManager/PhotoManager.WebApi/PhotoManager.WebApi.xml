@@ -1,0 +1,146 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PhotoManager.WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:PhotoManager.WebApi.Controllers.AlbumsController.GetAlbums">
+            <summary>
+            Get all albums of user
+            </summary>
+            <returns>All albums of current user</returns>
+            
+        </member>
+        <member name="M:PhotoManager.WebApi.Controllers.AlbumsController.CreateAlbum(PhotoManager.WebApi.Models.AlbumDto)">
+             <summary>
+             Create new album
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST api/albums/
+                 {
+                    "title": "Test album",
+                    "description": "Test Description"
+                 }
+            
+             </remarks>
+             <param name="albumDto"></param>
+             <returns>A newly created Album</returns>
+             <response code="201">Returns the newly created Album</response>
+             <response code="400">If the album already exists</response>      
+        </member>
+        <member name="M:PhotoManager.WebApi.Controllers.AlbumsController.GetAlbum(System.Guid)">
+            <summary>
+            Get Album by Id
+            </summary>
+            <remarks>
+            Sample request:
+                GET api/albums/9e462cc9-1637-43f6-6e99-08d95bf76e2e
+            </remarks>
+            <param name="id"></param>
+            <returns></returns>
+            <response code="200">Returns current album</response>
+            <response code="401">If user not authorized</response>
+            <response code="403">If user is not an owner</response> 
+            <response code="404">If the album is null</response> 
+        </member>
+        <member name="M:PhotoManager.WebApi.Controllers.AlbumsController.DeleteAlbum(System.Guid)">
+            <summary>
+            Delete album
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PhotoManager.WebApi.Controllers.AlbumsController.Put(System.Guid,PhotoManager.WebApi.Models.AlbumDto)">
+             <summary>
+             Edit Album
+             </summary>
+              /// <remarks>
+             Sample request:
+            
+                 PUT api/albums/{id}
+                 {
+                    "title": "Test album",
+                    "description": "Test Description"
+                 }
+            
+             </remarks>
+             <param name="id"></param>
+             <param name="albumDto"></param>
+             <returns></returns>
+        </member>
+        <member name="M:PhotoManager.WebApi.Controllers.AlbumsController.GetAllPhotosFromAlbum(System.Guid)">
+            <summary>
+            Get all photos from album
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PhotoManager.WebApi.Controllers.AlbumsController.AddPhotoToAlbum(System.Guid,System.Guid)">
+            <summary>
+            Add photo to album
+            </summary>
+            <param name="albumId"></param>
+            <param name="photoId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PhotoManager.WebApi.Controllers.AlbumsController.DeletePhotoFromAlbum(System.Guid,System.Guid)">
+            <summary>
+            Delete photo from album
+            </summary>
+            <param name="albumId"></param>
+            <param name="photoId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PhotoManager.WebApi.Controllers.AlbumsController.CheckTitle(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="title"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PhotoManager.WebApi.Controllers.PhotosController.GetPhotos">
+            <summary>
+            Get all photos of current user
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:PhotoManager.WebApi.Controllers.PhotosController.UploadPhoto">
+            <summary>
+            Upload new photo
+            </summary>
+            <param name="formFile"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PhotoManager.WebApi.Controllers.PhotosController.GetPhoto(System.Guid)">
+            <summary>
+            Get photo by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PhotoManager.WebApi.Controllers.PhotosController.UpdatePhoto(System.Guid,PhotoManager.WebApi.Models.PhotoDto)">
+            <summary>
+            Edit photo
+            </summary>
+            <param name="id"></param>
+            <param name="photoDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PhotoManager.WebApi.Controllers.PhotosController.DeletePhoto(System.Guid)">
+            <summary>
+            Delete photo
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:PhotoManager.WebApi.Controllers.PhotosController.SearchPhotos(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="param"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

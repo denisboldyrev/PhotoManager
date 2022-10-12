@@ -1,0 +1,141 @@
+﻿@{
+    ViewData["Title"] = "All Photos";
+}
+
+<partial name="_SearchPartial" />
+
+
+        <div class="form-group">
+            <button class="btn btn-dark add-mp-btn">Add Images</button>
+            <button class="btn btn-dark select-btn">Select Images</button>
+            <button class="btn btn-dark add-to-alb-btn" onclick="createModal('@Url.Action("AllAlbumsModal", "Album")')" style="display: none;">Add to Album</button>
+            <button class="btn btn-dark delete-mp-btn" style="display: none;">Remove Selected</button>
+        </div>
+
+<div class="upload-content"></div>
+<div class="content"></div>
+
+<div class="modal" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="modelContent">
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).on('click', '#hide-upload', function () {
+        $('.upload-content').html("");
+    });
+
+    $(document).on('click', '#search-btn', function () {
+        $('#loading').show();
+        var str = $('#searchString').val();
+        $.ajax({
+            type: "GET",
+            url: '/Photo/Search',
+            traditional: true,
+            data: { searchString: str },
+            contentType: 'application/json; charset=utf-8',
+
+        }).done(function (result) {
+            $('#loading').hide();
+            $('.content').html(result);
+        });
+    });
+    function createModal(url) {
+        $('#modelContent').load(url);
+        $('#myModal').modal('show');
+        $(".album-checkbox").each(function () {
+            $(this).removeClass('album-checkbox-checked');
+        });
+        $('.chk-alb').each(function () {
+            $(this).prop("checked", false);
+        });
+    };
+
+    $.get('/Photo/Index', function () {
+        $('.content').load('/Photo/AllPhotosPartial', function () {
+        });
+    });
+
+    $(document).on("click", ".add-mp-btn", function () {
+    var imgs = $("img").length;
+    var getCurrentUserType = '@ViewBag.CurrentUser';
+
+    if (getCurrentUserType == "Regular" && imgs >= 60) {
+        $('.add-mp-btn').prop('disabled', true);
+        $('.alert-warning').text(" Please update your subscription to add more photos");
+        $('.alert-warning').show().fadeTo(2000, 500).slideUp(500, function () {
+            $('.alert-warning').hide();
+        });
+    }
+    else {
+        $.ajax({
+            type: "GET",
+            url: '/Photo/Upload/',
+            success: function () {
+                $('.upload-content').load('/Photo/Upload/');
+            },
+            error: function () {
+                console.log("Error");
+            }
+        });
+    }
+    });
+
+    $(document).on("click", ".album-checkbox", function () {
+        $(this).toggleClass('album-checkbox-checked');
+        var $checkbox = $(this).find('.chk-alb');
+        var albId = $(this).find('.chk-alb').attr("value");
+        $checkbox.prop("checked", !$checkbox.prop("checked"));
+        event.preventDefault();
+        if ($checkbox.prop("checked")) {
+            selectedAlbumsId.push(albId);
+            if (selectedAlbumsId.length > 0) {
+                $('.add-to-alb-partial-btn').show();
+            }
+        }
+        else {
+            const index = selectedAlbumsId.indexOf(albId);
+            selectedAlbumsId.splice(index, 1);
+            if (selectedAlbumsId.length == 0) {
+                $('.add-to-alb-partial-btn').hide();
+            }
+        }
+    });
+    $(document).on("click", ".add-to-alb-partial-btn", function () {
+        $.ajax({
+            type: "POST",
+            url: '/Album/AddPhotosToAlbums',
+            traditional: true,
+            data: JSON.stringify({ Albums: selectedAlbumsId, Photos: selectedImagesId }),
+            contentType: 'application/json; charset=utf-8',
+            success: function () {
+                closeModal();
+                $(".select-btn").click();
+                $('.alert-success').text("Photos were added to Album");
+                $('.alert-success').show().fadeTo(2000, 500).slideUp(500, function () {
+                    $('.alert-success').hide();
+                });
+            },
+            error: function () {
+                console.log("Error");
+            }
+        });
+    });
+    $(document).on("click", ".close-modal", function () {
+        closeModal();
+    });
+
+    function closeModal() {
+        selectedAlbumsId = [];
+        $(".album-checkbox").each(function () {
+            $(this).removeClass('album-checkbox-checked');
+        });
+        $('.chk-alb').each(function () {
+            $(this).prop("checked", false);
+        });
+        $('#myModal').modal('hide');
+        $('#myModal').modal('dispose');
+    }
+</script>

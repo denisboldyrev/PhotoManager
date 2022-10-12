@@ -1,0 +1,30 @@
+<form [formGroup] = "albumForm">
+    <div class="form-group">
+        <input id="id" type="text" class="form-control" hidden/>
+        <label for="title">Title</label>
+        <input  id="title" type="text" formControlName="title" class="form-control" required/>
+        <div *ngIf="title.invalid && (title.dirty || title.touched)"
+        class="error">
+           <div *ngIf="title.errors?.required">
+            Title is required. 
+            </div>
+            <div *ngIf="title.errors.maxlength">
+                Title should be under 15 characters.
+            </div>
+            <div *ngIf="title.errors?.pattern">
+                Only A-Z, a-z, 0-9, ' ', '-', '_' characters are allowed.
+            </div>
+            <div *ngIf="title.errors?.titleAlreadyExists">
+               Album already exists.
+            </div>
+    </div>      
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <input id="description" formControlName="description" type="text" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="button" (click)="onClick($event)" value="Save" [disabled]="!albumForm.valid" class="btn btn-success" />
+        <a routerLink="/manage/albums" class="btn btn-danger ml-2">Cancel</a>
+    </div>
+</form>

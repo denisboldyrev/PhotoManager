@@ -1,0 +1,76 @@
+﻿@model PhotoManager.WebApp.Models.PhotoVM
+
+<div class="float-left">
+    <a asp-action="Index" asp-controller="Photo">Back</a>
+</div>
+<div class="row justify-content-center">
+    <div class="col-12 col-md-6 col-xl-6">
+        <div class="text-center">
+            <a href="/uploads/original/@Model.FileName" target="_blank">
+                <img id="@Model.Id" class="img-fluid center-block" src="/uploads/midsize/@Model.FileName" alt="@Model.Title">
+            </a>
+        </div>
+        <table class="table mt-5">
+            <tr>
+                <th>Title</th>
+                <td>
+                    @Html.DisplayFor(model => model.Title)
+                </td>
+            </tr>
+            <tr>
+                <th>Date of taking</th>
+                <td>
+                    @Html.DisplayFor(model => model.DateOfTaking)
+                </td>
+            </tr>
+            <tr>
+                <th>Place</th>
+                <td>
+                    @Html.DisplayFor(model => model.Place)
+                </td>
+            </tr>
+            <tr>
+                <th>Camera model</th>
+                <td>
+                    @Html.DisplayFor(model => model.CameraModel)
+                </td>
+            </tr>
+            <tr>
+                <th>Lens focal length</th>
+                <td>
+                    @Html.DisplayFor(model => model.LensfocalLength)
+                </td>
+            </tr>
+            <tr>
+                <th>Diaphragm</th>
+                <td>
+                    @Html.DisplayFor(model => model.Diaphragm)
+                </td>
+            </tr>
+            <tr>
+                <th>Shutter Speed</th>
+                <td>
+                    @Html.DisplayFor(model => model.ShutterSpeed)
+                </td>
+            </tr>
+            <tr>
+                <th>ISO</th>
+                <td>
+                    @Html.DisplayFor(model => model.ISO)
+                </td>
+            </tr>
+            <tr>
+                <th>Flash</th>
+                <td>
+                    @Html.DisplayFor(model => model.Flash)
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+    
+       
+   
+
+

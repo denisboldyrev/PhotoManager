@@ -1,0 +1,26 @@
+﻿@model IReadOnlyList<PhotoManager.WebApp.Models.PhotoVM>
+
+    <div class="row">
+        @foreach (var photo in Model)
+        {
+            <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 p-3">
+                <div class="d-inline-block p-1">
+                    <label class="image-checkbox">
+                        <a id="pdt" asp-action="Detail" asp-controller="Photo" asp-route-id="@photo.Id">
+                            <img id="imgs" class="img-fluid img-thumbnail" src="~/uploads/thumbnail/@photo.FileName" alt="@photo.Title">
+                        </a>
+                        <input id="chkboxes" type="checkbox" name="image[]" value="@photo.Id" />
+                        <i class="fa fa-check hidden"></i>
+                    </label>
+                    <div>
+                        <label class="text-uppercase">@photo.Title</label>
+                        <div class="float-right">
+                            <a asp-controller="Photo" asp-action="Edit" asp-route-id="@photo.Id"><i class="bi bi-pencil"></i></a>
+                            <button class="btn btn-link delete-ph-btn" onclick="deletePhotoBtnClick('@photo.Id')" name="@photo.Id" data-id="@photo.Id"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+

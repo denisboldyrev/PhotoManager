@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "";
+}
+<div class="content"></div>
+
+<script>
+    $.get('/Album/Index', function () {
+        $('.content').load('/Album/AllAlbumsPartial', function () {
+        });
+    });
+
+    
+
+</script>

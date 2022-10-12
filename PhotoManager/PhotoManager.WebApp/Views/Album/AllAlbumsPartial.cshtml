@@ -1,0 +1,83 @@
+﻿@model IReadOnlyList<PhotoManager.WebApp.Models.AlbumVM>
+
+
+            <div class="form-group">
+                <button class="btn btn-dark add-album-btn">Add Album</button>
+            </div>
+<p > </p>
+            <div class="content">
+                <div class="row">
+                    @foreach (var album in Model)
+                    {
+                        <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 p-1">
+                            <div class="container">
+                                <div class="d-inline-block border p-2">
+                                    <a id="alb-link" class="text-center" href="javascript:void(0);" alb-id="@album.Id">
+
+                                        @if (@album.Photos.Count > 0)
+                                        {
+                                            <img class="img-fluid img-thumbnail" src="~/uploads/thumbnail/@album.Photos.FirstOrDefault().FileName" alt=@album.Title>
+                                        }
+                                        else
+                                        {
+                                            <img class="img-fluid img-thumbnail" src="~/icons/5396c2be-55ee-415d-b1a6-f56c222f64dc.jpg" style="background-color:white" alt=@album.Title>
+                                        }
+
+                                    </a>
+                                    <h5 class="text-center text-capitalize">@album.Title</h5>
+                                    <p class="">@album.Description</p>
+                                </div>
+                                <div class="float-right">
+                                    <a asp-controller="Album" asp-action="Edit" asp-route-id="@album.Id" title="Edit"><i class="bi bi-pencil"></i></a>
+                                    <button class="btn btn-link del-alb" alb-id="@album.Id" title="Delete"><i class="bi bi-trash"></i></button>
+                                    <a id="sharelink" href="#" title="Share" name="@album.Title"><i class="bi bi-share"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <script>
+        var currentAbumId = null;
+        $(document).on("click", "#alb-link", function (e) {
+            $('#loading').show();
+            e.preventDefault();
+            currentAbumId = $(this).attr("alb-id");
+            $('.content').load('/Album/ManagePartial/' + currentAbumId, function () {
+            });
+            $('#loading').hide()
+        });
+
+        function fixedEncodeURIComponent(str) {
+            return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
+                return '%' + c.charCodeAt(0).toString(16);
+            });
+        }
+    $(document).on('click', '#sharelink', function () {
+        var inputc = document.body.appendChild(document.createElement("input"));
+        var albName = $(this).attr('name');
+        var encodedAlbName = fixedEncodeURIComponent(albName);
+        inputc.value = window.location.href.replace('#', '') + 's/' + encodedAlbName;
+        inputc.focus();
+        inputc.select();
+        document.execCommand('copy');
+        document.body.removeChild(inputc);
+        showAlert({ success: true, message: "Link copied to clipboard" });
+    });
+    $(document).on("click", ".add-album-btn", function () {
+
+        var albumsCount = $("img").length - 1;
+        var getCurrentUserType = '@ViewBag.SubscriptionType';
+
+        if (getCurrentUserType == "RegularUser" && albumsCount >= 5) {
+    $('.add-album-btn').prop('disabled', true);
+    $('.alert-warning').text("Please update your subscription to create more albums");
+    $('.alert-warning').show().fadeTo(2000, 500).slideUp(500, function () {
+        $('.alert-warning').hide();
+    });
+    }
+    else {
+        window.location.href = '@Url.Action("Create", "Album")';
+    }
+    });
+            </script>

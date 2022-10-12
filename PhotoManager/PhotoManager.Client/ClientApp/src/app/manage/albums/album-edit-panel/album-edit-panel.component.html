@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="text-right">
+      <div class="d-inline-block">
+        <a class="btn-link dropdown-item p-2" [routerLink]="['edit', album.id]"><i-bs name="pencil"></i-bs></a>
+      </div>
+      <div class="d-inline-block">
+        <button class="btn-link dropdown-item p-2" (click)="onClick()"><i-bs name="trash"></i-bs></button>
+      </div>
+      <!-- <div class="d-inline-block">
+        <button class="btn-link dropdown-item p-2" (click)="shareLink(album.id)"><i-bs name="share"></i-bs></button>
+      </div> -->
+  </div>
+</div>

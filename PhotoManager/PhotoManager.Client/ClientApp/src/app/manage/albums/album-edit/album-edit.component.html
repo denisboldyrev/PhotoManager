@@ -1,0 +1,8 @@
+<div *ngIf="isLoaded"  class="row justify-content-center">
+    <div class="col-12 col-md-6 col-xl-6">
+         <div>
+             <h2>Edit album</h2>
+            <app-album-form [formData]="formData" (submitBtnClick)="save($event)"></app-album-form>
+        </div>
+    </div>
+</div>        

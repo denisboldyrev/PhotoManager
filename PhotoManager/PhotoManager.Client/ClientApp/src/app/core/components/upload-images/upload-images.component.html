@@ -1,0 +1,20 @@
+<form [formGroup] = "uploadImgForm" novalidate>
+  <div class="row">
+    <div class="col">
+      <label for="file">File</label>
+        <input id="file" type="file" class="form-control mb-1" accept=".jpg*" formControlName="image" (change)="selectFiles($event)" /> 
+        <div *ngIf="image.invalid &&  (image.dirty || image.touched)" class="error">
+          <div *ngIf="image.errors?.requiredFileType" class="error">Invalid File Extension</div>
+          <div *ngIf="image.errors?.invalidSize" class="error">Invalid File Size</div>
+      </div>
+      </div>
+  <div>
+    <img *ngFor='let preview of previews' [src]="preview" class="preview p-2">
+  </div>
+  <div class="modal-footer">
+  <button class="btn btn-success btn-sm float-right" [disabled]="image.invalid" (click)="onClick()">
+    Upload
+  </button>
+</div>
+  </div>
+</form>

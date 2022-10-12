@@ -1,0 +1,54 @@
+﻿@model PhotoManager.WebApp.Models.PhotoVM
+
+    <div class="float-left">
+        <a asp-action="Index" asp-controller="Photo">Back</a>
+    </div>
+<div class="row justify-content-center">
+    <div class="col-12 col-md-6 col-xl-6">
+        <div class="text-center">
+            <img src="/uploads/midsize/@Model.FileName" alt="@Model.Title" />
+            </div>
+        <form class="mt-5" method="post" asp-controller="Photo" asp-action="Edit">
+            <input asp-for="Id" hidden class="form-control" />
+            <div asp-validation-for="" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfTaking"></label>
+                <input asp-for="DateOfTaking" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Place"></label>
+                <input asp-for="Place" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="CameraModel"></label>
+                <input asp-for="CameraModel" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="LensfocalLength"></label>
+                <input asp-for="LensfocalLength" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Diaphragm"></label>
+                <input asp-for="Diaphragm" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ShutterSpeed"></label>
+                <input asp-for="ShutterSpeed" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="ISO"></label>
+                <input asp-for="ISO" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Flash"></label>
+                <input asp-for="Flash" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-dark">Save</button>
+        </form>
+        </div>
+    </div>

@@ -1,0 +1,7 @@
+﻿@model ErrorVM
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h2 class="text-center">Error @Model.StatusCode - @Model.ErrorMessage</h2>
+<p>Request Id: @Model.RequestId</p>
